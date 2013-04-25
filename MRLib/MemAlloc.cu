@@ -11,5 +11,13 @@
 
 
 void MemAlloc::init(){
+	offset=0;
+}
 
+__device__ void MemAlloc::Start_MA_kernal(){
+	//the first thread in each block get some memory space from the memory allocator
+	unsigned int tid=threadIdx.x;
+	if(tid==0){
+
+	}
 }

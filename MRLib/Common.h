@@ -10,40 +10,65 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
-
 #include "../UserDef/GlobalDS.h"
-using namespace std;
-/**
- * important specs
- */
+
+//===========================
+// Some important Definitions
+//===========================
+#define WARP 32
+#define CACHEGROUP 8
+#define NUM_BUCKETS 16384
+
+
+
+//=============================
+// important data structures
+//=============================
 struct Specs{
 
 Specs(int argc, char** argv);
 void printArg();
 
 //for input data, offsets of the input data
-	const void* offsets;
+	const unsigned int* input;
+	//gl
 	unsigned int input_size ;
-	unsigned int unit_size;
+//	unsigned int unit_size;
 
 //global data
 	const global_data_t* gbdata;
+	unsigned int gbdata_size;
 
-
-
-
-
+//for the scheduler
+	unsigned int dim_grid;
+	unsigned int dim_block;
 
 };
 
 struct Job{
 	Job();
-	const void* input;
+	const unsigned int* input;
 	unsigned int input_size;
+//	unsigned int unit_size;
+	unsigned int data_size;
 };
 
 struct Output{
 
+};
+
+struct Intermediate{
+	//key
+	//value
+	unsigned int keysize;
+	unsigned int valuesize;
+};
+
+//specs used in GPU
+struct GpuSpecs{
+	const unsigned int* input;
+//	unsigned int input_size;
+//	unsigned int unit_size;
 };
 
 #endif /* COMMON_H_ */

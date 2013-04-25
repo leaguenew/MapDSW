@@ -8,15 +8,18 @@ CPP_SRCS += \
 
 CU_SRCS += \
 ../MRLib/MemAlloc.cu \
+../MRLib/SMCahce.cu \
 ../MRLib/TaskScheduler.cu 
 
 CU_DEPS += \
 ./MRLib/MemAlloc.d \
+./MRLib/SMCahce.d \
 ./MRLib/TaskScheduler.d 
 
 OBJS += \
 ./MRLib/Common.o \
 ./MRLib/MemAlloc.o \
+./MRLib/SMCahce.o \
 ./MRLib/TaskScheduler.o 
 
 CPP_DEPS += \
@@ -27,16 +30,16 @@ CPP_DEPS += \
 MRLib/%.o: ../MRLib/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: NVCC Compiler'
-	nvcc -G -g -O0  -odir "MRLib" -M -o "$(@:%.o=%.d)" "$<"
-	nvcc -G -g -O0 --compile  -x c++ -o  "$@" "$<"
+	nvcc -I/usr/local/cuda-5.0/include -G -g -O0  -odir "MRLib" -M -o "$(@:%.o=%.d)" "$<"
+	nvcc -I/usr/local/cuda-5.0/include -G -g -O0 --compile  -x c++ -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 MRLib/%.o: ../MRLib/%.cu
 	@echo 'Building file: $<'
 	@echo 'Invoking: NVCC Compiler'
-	nvcc -G -g -O0  -odir "MRLib" -M -o "$(@:%.o=%.d)" "$<"
-	nvcc --compile -G -O0 -g  -x cu -o  "$@" "$<"
+	nvcc -I/usr/local/cuda-5.0/include -G -g -O0  -odir "MRLib" -M -o "$(@:%.o=%.d)" "$<"
+	nvcc --compile -G -I/usr/local/cuda-5.0/include -O0 -g  -x cu -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

@@ -17,8 +17,8 @@ CPP_DEPS += \
 %.o: ../%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: NVCC Compiler'
-	nvcc -G -g -O0  -odir "" -M -o "$(@:%.o=%.d)" "$<"
-	nvcc -G -g -O0 --compile  -x c++ -o  "$@" "$<"
+	nvcc -I/usr/local/cuda-5.0/include -G -g -O0  -odir "" -M -o "$(@:%.o=%.d)" "$<"
+	nvcc -I/usr/local/cuda-5.0/include -G -g -O0 --compile  -x c++ -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

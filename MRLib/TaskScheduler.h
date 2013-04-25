@@ -13,6 +13,7 @@
 #include <queue>
 #include "Common.h"
 
+
 /**
  * TaskScheduler is a class wit
  */
@@ -35,8 +36,6 @@ private:
 	const Specs* mySpecs;
 	std::queue<Job> JobQueue;
 	std::queue<Output> OutputQueue;
-
-	MemAlloc a;
 
 };
 

@@ -10,9 +10,18 @@
 #ifndef MEMALLOC_H_
 #define MEMALLOC_H_
 
-#include "cuda.h"
+#include "Common.h"
 
-__constant__ char* memoryPool;
+class SMCache;
+
+//the global data in the device memory
+global_data_t* global_data_d;
+
+//the offset
+unsigned int* input_offset_d;
+unsigned int* input_size_d;
+
+
 
 /**
  * part1: Reserved for
@@ -20,13 +29,17 @@ __constant__ char* memoryPool;
 class MemAlloc{
 public:
 	//Interface
-	void init();
+	__device__ void init();
+	__device__ void Start_MA_kernal();
+	__device__ void Merge_SMCache(SMCache*);
 
 private:
-
-	__device__ ;
+	 char memoryPool[NUM_BUCKETS];
+	 unsigned int buckets_remain;
+	 unsigned int offset;
 
 private:
+    __device__ char* Mem_Alloc_Global();
 
 
 

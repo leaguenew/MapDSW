@@ -13,6 +13,7 @@
 
 struct global_data_t{
 	char* content;
+	char* keyword;
 };
 
 #endif /* GLOBALDS_H_ */

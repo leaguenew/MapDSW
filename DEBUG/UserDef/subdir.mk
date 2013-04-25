@@ -17,8 +17,8 @@ OBJS += \
 UserDef/%.o: ../UserDef/%.cu
 	@echo 'Building file: $<'
 	@echo 'Invoking: NVCC Compiler'
-	nvcc -G -g -O0  -odir "UserDef" -M -o "$(@:%.o=%.d)" "$<"
-	nvcc --compile -G -O0 -g  -x cu -o  "$@" "$<"
+	nvcc -I/usr/local/cuda-5.0/include -G -g -O0  -odir "UserDef" -M -o "$(@:%.o=%.d)" "$<"
+	nvcc --compile -G -I/usr/local/cuda-5.0/include -O0 -g  -x cu -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

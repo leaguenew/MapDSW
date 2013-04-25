@@ -7,13 +7,18 @@
  *      Author: Shiwei Dong
  */
 
-#include <cuda.h>
 
+/**
+ * String match
+ */
+__device__ Intermediate map(void* Key, void* Value){
 
-__device__ void map(){
+	//Match the key word
 
+	return emit_intermediate();
 }
 
 __device__ void reduce(){
+
 
 }

@@ -11,14 +11,21 @@
 #define SMCACHE_H_
 
 /**
- *
+ * SMcache is used in GPU shared memory
  */
 
 class SMCache{
 public:
+	//interface
+	__device__ void init();
+	__device__ void insert();
+
 
 private:
 	enum CacheMode=["a","b","c"];
+
+private:
+	__device__ void flush();
 };
 
 

@@ -1,16 +1,16 @@
 UserDef/Mapreduce.o : ../UserDef/Mapreduce.cu \
-    /usr/local/cuda-5.0/bin/../include/cuda_runtime.h \
-    /usr/local/cuda-5.0/bin/../include/host_config.h \
+    /usr/local/cuda-5.0/include/cuda_runtime.h \
+    /usr/local/cuda-5.0/include/host_config.h \
     /usr/include/features.h \
     /usr/include/i386-linux-gnu/bits/predefs.h \
     /usr/include/i386-linux-gnu/sys/cdefs.h \
     /usr/include/i386-linux-gnu/bits/wordsize.h \
     /usr/include/i386-linux-gnu/gnu/stubs.h \
     /usr/include/i386-linux-gnu/gnu/stubs-32.h \
-    /usr/local/cuda-5.0/bin/../include/builtin_types.h \
-    /usr/local/cuda-5.0/bin/../include/device_types.h \
-    /usr/local/cuda-5.0/bin/../include/host_defines.h \
-    /usr/local/cuda-5.0/bin/../include/driver_types.h \
+    /usr/local/cuda-5.0/include/builtin_types.h \
+    /usr/local/cuda-5.0/include/device_types.h \
+    /usr/local/cuda-5.0/include/host_defines.h \
+    /usr/local/cuda-5.0/include/driver_types.h \
     /usr/lib/gcc/i686-linux-gnu/4.4.7/include-fixed/limits.h \
     /usr/lib/gcc/i686-linux-gnu/4.4.7/include-fixed/syslimits.h \
     /usr/include/limits.h \
@@ -21,15 +21,15 @@ UserDef/Mapreduce.o : ../UserDef/Mapreduce.cu \
     /usr/include/i386-linux-gnu/bits/xopen_lim.h \
     /usr/include/i386-linux-gnu/bits/stdio_lim.h \
     /usr/lib/gcc/i686-linux-gnu/4.4.7/include/stddef.h \
-    /usr/local/cuda-5.0/bin/../include/surface_types.h \
-    /usr/local/cuda-5.0/bin/../include/texture_types.h \
-    /usr/local/cuda-5.0/bin/../include/vector_types.h \
-    /usr/local/cuda-5.0/bin/../include/channel_descriptor.h \
-    /usr/local/cuda-5.0/bin/../include/cuda_runtime_api.h \
-    /usr/local/cuda-5.0/bin/../include/cuda_device_runtime_api.h \
-    /usr/local/cuda-5.0/bin/../include/driver_functions.h \
-    /usr/local/cuda-5.0/bin/../include/vector_functions.h \
-    /usr/local/cuda-5.0/bin/../include/common_functions.h \
+    /usr/local/cuda-5.0/include/surface_types.h \
+    /usr/local/cuda-5.0/include/texture_types.h \
+    /usr/local/cuda-5.0/include/vector_types.h \
+    /usr/local/cuda-5.0/include/channel_descriptor.h \
+    /usr/local/cuda-5.0/include/cuda_runtime_api.h \
+    /usr/local/cuda-5.0/include/cuda_device_runtime_api.h \
+    /usr/local/cuda-5.0/include/driver_functions.h \
+    /usr/local/cuda-5.0/include/vector_functions.h \
+    /usr/local/cuda-5.0/include/common_functions.h \
     /usr/include/string.h \
     /usr/include/xlocale.h \
     /usr/include/time.h \
@@ -43,7 +43,7 @@ UserDef/Mapreduce.o : ../UserDef/Mapreduce.cu \
     /usr/include/c++/4.4/i686-linux-gnu/./bits/os_defines.h \
     /usr/include/c++/4.4/i686-linux-gnu/./bits/cpu_defines.h \
     /usr/include/c++/4.4/exception \
-    /usr/local/cuda-5.0/bin/../include/math_functions.h \
+    /usr/local/cuda-5.0/include/math_functions.h \
     /usr/include/math.h \
     /usr/include/i386-linux-gnu/bits/huge_val.h \
     /usr/include/i386-linux-gnu/bits/huge_valf.h \
@@ -70,21 +70,20 @@ UserDef/Mapreduce.o : ../UserDef/Mapreduce.cu \
     /usr/include/c++/4.4/ext/type_traits.h \
     /usr/include/c++/4.4/bits/cmath.tcc \
     /usr/include/c++/4.4/cstdlib \
-    /usr/local/cuda-5.0/bin/../include/math_functions_dbl_ptx1.h \
-    /usr/local/cuda-5.0/bin/../include/cuda_surface_types.h \
-    /usr/local/cuda-5.0/bin/../include/cuda_texture_types.h \
-    /usr/local/cuda-5.0/bin/../include/device_functions.h \
-    /usr/local/cuda-5.0/bin/../include/sm_11_atomic_functions.h \
-    /usr/local/cuda-5.0/bin/../include/sm_12_atomic_functions.h \
-    /usr/local/cuda-5.0/bin/../include/sm_13_double_functions.h \
-    /usr/local/cuda-5.0/bin/../include/sm_20_atomic_functions.h \
-    /usr/local/cuda-5.0/bin/../include/sm_35_atomic_functions.h \
-    /usr/local/cuda-5.0/bin/../include/sm_20_intrinsics.h \
-    /usr/local/cuda-5.0/bin/../include/sm_30_intrinsics.h \
-    /usr/local/cuda-5.0/bin/../include/sm_35_intrinsics.h \
-    /usr/local/cuda-5.0/bin/../include/surface_functions.h \
-    /usr/local/cuda-5.0/bin/../include/texture_fetch_functions.h \
-    /usr/local/cuda-5.0/bin/../include/texture_indirect_functions.h \
-    /usr/local/cuda-5.0/bin/../include/surface_indirect_functions.h \
-    /usr/local/cuda-5.0/bin/../include/device_launch_parameters.h \
-    /usr/local/cuda-5.0/bin/../include/cuda.h
+    /usr/local/cuda-5.0/include/math_functions_dbl_ptx1.h \
+    /usr/local/cuda-5.0/include/cuda_surface_types.h \
+    /usr/local/cuda-5.0/include/cuda_texture_types.h \
+    /usr/local/cuda-5.0/include/device_functions.h \
+    /usr/local/cuda-5.0/include/sm_11_atomic_functions.h \
+    /usr/local/cuda-5.0/include/sm_12_atomic_functions.h \
+    /usr/local/cuda-5.0/include/sm_13_double_functions.h \
+    /usr/local/cuda-5.0/include/sm_20_atomic_functions.h \
+    /usr/local/cuda-5.0/include/sm_35_atomic_functions.h \
+    /usr/local/cuda-5.0/include/sm_20_intrinsics.h \
+    /usr/local/cuda-5.0/include/sm_30_intrinsics.h \
+    /usr/local/cuda-5.0/include/sm_35_intrinsics.h \
+    /usr/local/cuda-5.0/include/surface_functions.h \
+    /usr/local/cuda-5.0/include/texture_fetch_functions.h \
+    /usr/local/cuda-5.0/include/texture_indirect_functions.h \
+    /usr/local/cuda-5.0/include/surface_indirect_functions.h \
+    /usr/local/cuda-5.0/include/device_launch_parameters.h

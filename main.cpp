@@ -42,16 +42,17 @@ int main(int argc, char **argv) {
 
 	char* inputbuf=new char[10];
 	inputbuf="hello you";
-	vector<int> offset;
-    offset.push_back(0);
-    offset.push_back(6);
+	int* offset;
+	offset=new int[2];
+    offset[0]=0;
+    offset[1]=6;
 
 
 	//initialize the Specs from the command line
     Specs SchedulerSpecs(argc,argv); //	parse the parameter and store them into Scheduler
-    SchedulerSpecs.offsets= &offset;
+    SchedulerSpecs.input= (unsigned int*)offset;
     SchedulerSpecs.input_size=10*sizeof(int);
-    SchedulerSpecs.unit_size=sizeof(int);
+
 
     //DoLog("hello");
 
