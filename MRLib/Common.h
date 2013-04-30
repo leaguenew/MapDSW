@@ -17,8 +17,10 @@
 //===========================
 #define WARP 32
 #define CACHEGROUP 8
-#define NUM_BUCKETS 16384
-
+#define MEM_BUCKETS 16384
+#define CACHE_BUCKETS 800
+#define MEM_POOL 4*1024*1024
+#define SM_POOL 1024
 
 
 //=============================

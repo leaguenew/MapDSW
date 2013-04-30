@@ -43,11 +43,12 @@ __global__ void Mapper (MemAlloc* mem_alloc_d){
 	__shared__ SMCache Cache[CACHEGROUP];
 
 	//the first thread of each group initialize the SMCache using different caching mode
+
 	unsigned int threadsPerGroup = align(Num_threads_b,CACHEGROUP)/CACHEGROUP;
 	unsigned int gid=tid/threadsPerGroup;
 
 	if(tid%threadsPerGroup==0){
-		Cache[gid].init(mode);
+		Cache[gid].init();
 	}
     __syncthreads();
 
@@ -122,6 +123,7 @@ void TaskScheduler::slice(){
 void TaskScheduler::doMap(const Job* job){
 
 	//1.Initialize the memory allocator on the GPU
+	//to be done ,initialize different paras
 	MemAlloc* mem_alloc_d;
 	CE(cudaMalloc(&mem_alloc_d, sizeof(MemAlloc)));
 
@@ -147,6 +149,7 @@ void TaskScheduler::doMap(const Job* job){
 	//free used data pointers
 	CE(cudaFree(global_data_d));
 	CE(cudaFree(input_offset_d));
+	CE(cudaFree(&input_size_d));
 }
 
 

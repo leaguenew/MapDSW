@@ -21,7 +21,8 @@ global_data_t* global_data_d;
 unsigned int* input_offset_d;
 unsigned int* input_size_d;
 
-
+//
+__shared__ volatile unsigned int global_mem_offset[];
 
 /**
  * part1: Reserved for
@@ -34,12 +35,17 @@ public:
 	__device__ void Merge_SMCache(SMCache*);
 
 private:
-	 char memoryPool[NUM_BUCKETS];
+	 char memoryPool[MEM_POOL];
+
+	 //parameters of the memory pool
 	 unsigned int buckets_remain;
+	 unsigned int num_buckets;
 	 unsigned int offset;
 
+
 private:
-    __device__ char* Mem_Alloc_Global();
+    __device__ void* Mem_Alloc_Global();
+    __device__ void* Mem_Alloc_Device();
 
 
 
