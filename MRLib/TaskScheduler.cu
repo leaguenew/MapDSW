@@ -59,6 +59,7 @@ __global__ void Mapper (MemAlloc* mem_alloc_d){
     	//do the map job by calling the user defined map function, get the key and value and insert them into Cache
     	Intermediate *inter= map(offset,Cache[gid]);
     	Cache[gid].insert(inter, mem_alloc_d);
+    	__syncthreads();
     }
 
 	//
@@ -69,8 +70,9 @@ __global__ void Mapper (MemAlloc* mem_alloc_d){
 //===========================
 //  GPU device functions
 //===========================
-__device__ Intermediate* emit_intermediate(){
-	return;
+__device__ Intermediate* emit_intermediate(const void* key, const void* value, unsigned short keysize, unsigned short valuesize){
+	Intermediate* result(key, value, keysize, valuesize);
+	return result;
 }
 
 /**

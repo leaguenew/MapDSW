@@ -22,3 +22,10 @@ __device__ void reduce(){
 
 
 }
+
+/**
+ * compare the value, Most time, this function does not need to be changed
+ */
+__device__ bool compare(const void* a, const void* b, unsigned short size){
+	return false;
+}

@@ -20,8 +20,12 @@
 #define MEM_BUCKETS 16384
 #define CACHE_BUCKETS 800
 #define MEM_POOL 4*1024*1024
-#define SM_POOL 1024
+#define CACHE_POOL 1024
 
+//the max remain buckets in SM Cache or MemAlloc.
+//While the remain bucket is small, it will use more time to find an empty bucket which may waste time
+#define MAX_REMAIN_BUCKETS_C 0  //eg. 20
+#define MAX_REMAIN_BUCKETS_M 0  //eg. MEM_BUCKETS/10
 
 //=============================
 // important data structures
@@ -60,10 +64,16 @@ struct Output{
 };
 
 struct Intermediate{
-	//key
-	//value
-	unsigned int keysize;
-	unsigned int valuesize;
+	Intermediate(const void* key_in, const void* value_in, unsigned short keysize_in, unsigned short valuesize_in){
+		key=key_in;
+		value=value_in;
+		keysize=keysize_in;
+		valuesize=valuesize_in;
+	}
+	const void* key;
+	const void* value;
+	unsigned short keysize;
+	unsigned short valuesize;
 };
 
 //specs used in GPU
