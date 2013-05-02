@@ -27,9 +27,16 @@
 //
 //
 
-#include "SMCache.h"
-#include "UtilLib/hash.cu"
 #include "assert.h"
+#include "Common.h"
+#include "SMCache.h"
+#include "MemAlloc.h"
+#include "Intermediate.h"
+#include "../UtilLib/hash.h"
+#include "../UtilLib/GpuUtil.h"
+#include "../UserDef/Mapreduce.h"
+
+__shared__ unsigned int domerge;
 
 __device__ void SMCache::init() {
 	for (int i = 0; i < CACHE_POOL; i++) {
@@ -40,8 +47,7 @@ __device__ void SMCache::init() {
 		value_index[j]=0;
 		key_size[j]=0;
 		value_size[j]=0;
-		lock[j]=0;
-	}
+		lock[j]=0;	}
 	buckets_remain = CACHE_BUCKETS;
 	offset = 0;
 }
@@ -74,15 +80,35 @@ __device__ int SMCache::Cache_Alloc(unsigned int size) {
 	return -1;
 }
 
-__device__ void* SMCache::getadress(unsigned int offset) {
+__device__ void* SMCache::getaddress(unsigned int offset) {
 	return memoryPool + offset;
 }
+
+
+//get intermediate from cache buckets which is used while merged into the Mem_Alloc
+__device__ bool SMCache::getIntermediate(Intermediate * result, unsigned int bucket){
+	assert(bucket<CACHE_BUCKETS);
+
+	if(bucket<CACHE_BUCKETS||key_index[bucket]!=0){
+		unsigned short keysize=key_size[bucket];
+		unsigned short valuesize=value_size[bucket];
+		result->init(getaddress(key_index[bucket]), keysize, getaddress(value_index[bucket]), valuesize);
+		return true;
+	}
+
+	return false;
+}
+
 
 /**
  * This function perform as a insert and update function in SMCache.
  * The input is the intermediate date which is emitted at the end of the Map function
  */
 __device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d) {
+
+	unsigned int tid = threadIdx.x;
+	unsigned int Num_threads_b=blockDim.x;
+	unsigned int threadsPerGroup = align(Num_threads_b,CACHEGROUP)/CACHEGROUP;
 
 	/**
 	 * if the SMCache is not full, operate the insertion or update
@@ -100,7 +126,8 @@ __device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d) {
 	 */
 	if (domerge) {
 		mem_alloc_d->Merge_SMCache(this);
-		if (tid % gid == 0) {
+		__syncthreads();
+		if (tid % threadsPerGroup == 0) {
 			flush();
 		}
 		if (tid == 0) {
@@ -135,8 +162,9 @@ __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
 			if (getLock(&lock[result_bucket])) {
 
 				//alloc space for key,value, and store the key in the memory allocated
-				unsigned short tmp_offset_key = Cache_Alloc(inter->keysize);
-				unsigned short tmp_offset_value = Cache_Alloc(inter->valuesize);
+				//trick put tmp_offset_value first so that tmp_offset_key cannot be 0
+			    int tmp_offset_value = Cache_Alloc(inter->valuesize);
+				int tmp_offset_key = Cache_Alloc(inter->keysize);
 
 				//if the alloc failed return false
 				if (tmp_offset_key < 0 || tmp_offset_value < 0) {
@@ -144,11 +172,11 @@ __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
 				}
 
 				key_index[result_bucket] = tmp_offset_key;
-				void* key_adress = getadress(tmp_offset_key);
+				void* key_adress = getaddress(tmp_offset_key);
 				copyVal(key_adress, (void*) inter->key, inter->keysize);
 
 				value_index[result_bucket] = tmp_offset_value;
-				void* value_adress = getadress(tmp_offset_value);
+				void* value_adress = getaddress(tmp_offset_value);
 				copyVal(value_adress, (void*) inter->value, inter->valuesize);
 
 				key_size[result_bucket] = inter->keysize;
@@ -165,7 +193,7 @@ __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
 			//get the key from bucket, aware that every key or value is ended by \0 so that we can get the key or value easily
 			unsigned short currentKeysize = key_size[result_bucket];
 			if (inter->keysize == currentKeysize) {
-				char *currentkey = getadress(currentKeysize);
+				char *currentkey = (char*) getaddress(currentKeysize);
 				if (compare(currentkey, inter->key, currentKeysize)) {
 					//the current key is exactly the same as the input key, do the reduce step and update the value
 

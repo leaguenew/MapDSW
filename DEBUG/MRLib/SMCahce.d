@@ -1,4 +1,4 @@
-MRLib/Common.o : ../MRLib/Common.cu \
+MRLib/SMCahce.o : ../MRLib/SMCahce.cu \
     /usr/local/cuda-5.0/include/cuda_runtime.h \
     /usr/local/cuda-5.0/include/host_config.h \
     /usr/include/features.h \
@@ -95,4 +95,13 @@ MRLib/Common.o : ../MRLib/Common.cu \
     /usr/local/cuda-5.0/include/surface_indirect_functions.h \
     /usr/local/cuda-5.0/include/device_launch_parameters.h \
     ../MRLib/Common.h \
-    ../MRLib/../UserDef/GlobalDS.h
+    ../MRLib/../UserDef/GlobalDS.h \
+    ../MRLib/SMCache.h \
+    ../MRLib/MemAlloc.h \
+    ../MRLib/Intermediate.h \
+    ../MRLib/../UtilLib/hash.h \
+    ../MRLib/../UtilLib/GpuUtil.h \
+    /usr/include/stdint.h \
+    /usr/include/i386-linux-gnu/bits/wchar.h \
+    /usr/local/cuda-5.0/include/cuda.h \
+    ../MRLib/../UserDef/Mapreduce.h

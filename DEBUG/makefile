@@ -9,6 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir.mk
+-include UtilLib/subdir.mk
 -include UserDef/subdir.mk
 -include MRLib/subdir.mk
 -include objects.mk
@@ -48,7 +49,7 @@ all: MapDSW secondary-outputs
 MapDSW: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: NVCC Linker'
-	nvcc  -link -o  "MapDSW" $(OBJS) $(USER_OBJS) $(LIBS)
+	nvcc --relocatable-device-code=true -gencode arch=compute_20,code=sm_21 -link -o  "MapDSW" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -11,20 +11,23 @@
 #define SMCACHE_H_
 
 #include "Common.h"
+
 /**
  * SMcache is used in GPU shared memory
  */
 
 class MemAlloc;
+class Intermediate;
 
-__shared__ unsigned int domerge;
+extern __shared__ unsigned int domerge;
 
 class SMCache{
 public:
 	//interface
 	__device__ void init();
 	__device__ void insert(Intermediate *, MemAlloc* );
-
+	//get intermediate from cache buckets which is used while merged into the Mem_Alloc
+	__device__ bool getIntermediate(Intermediate * result, unsigned int bucket);
 
 private:
 	//different cache mode
@@ -43,8 +46,8 @@ private:
 
 private:
 	__device__ int Cache_Alloc(unsigned int size);
-	__device__ void* getadress(unsigned int offset);
-	__device__ void getvalue(void* address, unsigned int size)
+	__device__ void* getaddress(unsigned int offset);
+	__device__ void getvalue(void* address, unsigned int size);
 
 	__device__ void flush();
 	__device__ bool insertOrUpdate(Intermediate *);

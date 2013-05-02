@@ -40,8 +40,8 @@ int main(int argc, char **argv) {
 	string keyword;
 	keyword="hello";
 
-	char* inputbuf=new char[10];
-	inputbuf="hello you";
+	char* inputbuf=new char[11];
+	inputbuf="hello\0you\0";
 	int* offset;
 	offset=new int[2];
     offset[0]=0;
@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
 	//initialize the Specs from the command line
     Specs SchedulerSpecs(argc,argv); //	parse the parameter and store them into Scheduler
     SchedulerSpecs.input= (unsigned int*)offset;
-    SchedulerSpecs.input_size=10*sizeof(int);
+    SchedulerSpecs.input_size=11*sizeof(int);
 
 
     //DoLog("hello");

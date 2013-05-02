@@ -3,10 +3,11 @@
  *
  * hash.cu
  *
- *  Created on: 2013-5-1
+ *  Created on: 2013-5-3
  *      Author: Shiwei Dong
  */
 
+#include "hash.h"
 
 
 __device__ unsigned short hash(void *key, unsigned short size)
@@ -20,4 +21,3 @@ __device__ unsigned short hash(void *key, unsigned short size)
 	}
 	return hs;
 }
-

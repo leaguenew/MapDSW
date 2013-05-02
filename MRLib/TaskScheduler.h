@@ -11,7 +11,10 @@
 #define TASKSCHEDULER_H_
 
 #include <queue>
-#include "Common.h"
+
+struct Specs;
+struct Job;
+struct Output;
 
 
 /**
@@ -38,5 +41,7 @@ private:
 	std::queue<Output> OutputQueue;
 
 };
+
+//__device__ void emit_intermediate(Intermediate* inter, SMCache* Cache, MemAlloc* Mem_Alloc);
 
 #endif /* TASKSCHEDULER_H_ */

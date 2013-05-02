@@ -43,15 +43,12 @@ UserDef/Mapreduce.o : ../UserDef/Mapreduce.cu \
     /usr/include/c++/4.4/i686-linux-gnu/./bits/os_defines.h \
     /usr/include/c++/4.4/i686-linux-gnu/./bits/cpu_defines.h \
     /usr/include/c++/4.4/exception \
-    /usr/local/cuda-5.0/include/math_functions.h \
-    /usr/include/math.h \
-    /usr/include/i386-linux-gnu/bits/huge_val.h \
-    /usr/include/i386-linux-gnu/bits/huge_valf.h \
-    /usr/include/i386-linux-gnu/bits/huge_vall.h \
-    /usr/include/i386-linux-gnu/bits/inf.h \
-    /usr/include/i386-linux-gnu/bits/nan.h \
-    /usr/include/i386-linux-gnu/bits/mathdef.h \
-    /usr/include/i386-linux-gnu/bits/mathcalls.h \
+    /usr/include/stdio.h \
+    /usr/include/libio.h \
+    /usr/include/_G_config.h \
+    /usr/include/wchar.h \
+    /usr/lib/gcc/i686-linux-gnu/4.4.7/include/stdarg.h \
+    /usr/include/i386-linux-gnu/bits/sys_errlist.h \
     /usr/include/stdlib.h \
     /usr/include/i386-linux-gnu/bits/waitflags.h \
     /usr/include/i386-linux-gnu/bits/waitstatus.h \
@@ -65,12 +62,22 @@ UserDef/Mapreduce.o : ../UserDef/Mapreduce.cu \
     /usr/include/i386-linux-gnu/sys/sysmacros.h \
     /usr/include/i386-linux-gnu/bits/pthreadtypes.h \
     /usr/include/alloca.h \
+    /usr/include/assert.h \
+    /usr/local/cuda-5.0/include/math_functions.h \
+    /usr/include/math.h \
+    /usr/include/i386-linux-gnu/bits/huge_val.h \
+    /usr/include/i386-linux-gnu/bits/huge_valf.h \
+    /usr/include/i386-linux-gnu/bits/huge_vall.h \
+    /usr/include/i386-linux-gnu/bits/inf.h \
+    /usr/include/i386-linux-gnu/bits/nan.h \
+    /usr/include/i386-linux-gnu/bits/mathdef.h \
+    /usr/include/i386-linux-gnu/bits/mathcalls.h \
     /usr/include/c++/4.4/cmath \
     /usr/include/c++/4.4/bits/cpp_type_traits.h \
     /usr/include/c++/4.4/ext/type_traits.h \
     /usr/include/c++/4.4/bits/cmath.tcc \
     /usr/include/c++/4.4/cstdlib \
-    /usr/local/cuda-5.0/include/math_functions_dbl_ptx1.h \
+    /usr/local/cuda-5.0/include/math_functions_dbl_ptx3.h \
     /usr/local/cuda-5.0/include/cuda_surface_types.h \
     /usr/local/cuda-5.0/include/cuda_texture_types.h \
     /usr/local/cuda-5.0/include/device_functions.h \
@@ -86,4 +93,10 @@ UserDef/Mapreduce.o : ../UserDef/Mapreduce.cu \
     /usr/local/cuda-5.0/include/texture_fetch_functions.h \
     /usr/local/cuda-5.0/include/texture_indirect_functions.h \
     /usr/local/cuda-5.0/include/surface_indirect_functions.h \
-    /usr/local/cuda-5.0/include/device_launch_parameters.h
+    /usr/local/cuda-5.0/include/device_launch_parameters.h \
+    ../UserDef/Mapreduce.h \
+    ../UserDef/../MRLib/Intermediate.h \
+    ../UserDef/../MRLib/SMCache.h \
+    ../UserDef/../MRLib/Common.h \
+    ../UserDef/../MRLib/../UserDef/GlobalDS.h \
+    ../UserDef/../MRLib/MemAlloc.h

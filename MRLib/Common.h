@@ -18,27 +18,26 @@
 #define WARP 32
 #define CACHEGROUP 8
 #define MEM_BUCKETS 16384
-#define CACHE_BUCKETS 800
+#define CACHE_BUCKETS 400
 #define MEM_POOL 4*1024*1024
 #define CACHE_POOL 1024
 
 //the max remain buckets in SM Cache or MemAlloc.
 //While the remain bucket is small, it will use more time to find an empty bucket which may waste time
-#define MAX_REMAIN_BUCKETS_C 0  //eg. 20
+#define MAX_REMAIN_BUCKETS_C 20  //eg. 20
 #define MAX_REMAIN_BUCKETS_M 0  //eg. MEM_BUCKETS/10
-
 //=============================
 // important data structures
 //=============================
-struct Specs{
+struct Specs {
 
-Specs(int argc, char** argv);
-void printArg();
+	Specs(int argc, char** argv);
+	void printArg();
 
 //for input data, offsets of the input data
 	const unsigned int* input;
-	//gl
-	unsigned int input_size ;
+//the number of input records* sizeof(int)
+	unsigned int input_size;
 //	unsigned int unit_size;
 
 //global data
@@ -51,7 +50,7 @@ void printArg();
 
 };
 
-struct Job{
+struct Job {
 	Job();
 	const unsigned int* input;
 	unsigned int input_size;
@@ -59,25 +58,13 @@ struct Job{
 	unsigned int data_size;
 };
 
-struct Output{
-
-};
-
-struct Intermediate{
-	Intermediate(const void* key_in, const void* value_in, unsigned short keysize_in, unsigned short valuesize_in){
-		key=key_in;
-		value=value_in;
-		keysize=keysize_in;
-		valuesize=valuesize_in;
-	}
-	const void* key;
-	const void* value;
-	unsigned short keysize;
-	unsigned short valuesize;
+struct Output {
+	//KEY
+	//VALUE
 };
 
 //specs used in GPU
-struct GpuSpecs{
+struct GpuSpecs {
 	const unsigned int* input;
 //	unsigned int input_size;
 //	unsigned int unit_size;

@@ -1,4 +1,4 @@
-MRLib/Common.o : ../MRLib/Common.cu \
+UtilLib/GpuUtil.o : ../UtilLib/GpuUtil.cu \
     /usr/local/cuda-5.0/include/cuda_runtime.h \
     /usr/local/cuda-5.0/include/host_config.h \
     /usr/include/features.h \
@@ -94,5 +94,7 @@ MRLib/Common.o : ../MRLib/Common.cu \
     /usr/local/cuda-5.0/include/texture_indirect_functions.h \
     /usr/local/cuda-5.0/include/surface_indirect_functions.h \
     /usr/local/cuda-5.0/include/device_launch_parameters.h \
-    ../MRLib/Common.h \
-    ../MRLib/../UserDef/GlobalDS.h
+    ../UtilLib/GpuUtil.h \
+    /usr/include/stdint.h \
+    /usr/include/i386-linux-gnu/bits/wchar.h \
+    /usr/local/cuda-5.0/include/cuda.h

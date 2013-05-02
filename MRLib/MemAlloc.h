@@ -10,19 +10,21 @@
 #ifndef MEMALLOC_H_
 #define MEMALLOC_H_
 
-#include "Common.h"
 
+#include "Common.h"
 class SMCache;
+class Intermediate;
 
 //the global data in the device memory
-global_data_t* global_data_d;
+extern __device__ global_data_t* global_data_d;
 
 //the offset
-unsigned int* input_offset_d;
-unsigned int* input_size_d;
+extern __device__ unsigned int* input_offset_d;
+extern __device__ unsigned int* input_size_d;
 
-//
-__shared__ volatile unsigned int global_mem_offset[];
+//every block has a copy of this shared array. Since global atomic access use too much time, use 8 copies of offsets
+//each copy stores the start address for its warp
+extern __shared__ volatile unsigned int global_mem_offset[8];
 
 /**
  * part1: Reserved for
@@ -30,23 +32,31 @@ __shared__ volatile unsigned int global_mem_offset[];
 class MemAlloc{
 public:
 	//Interface
-	__device__ void init();
+	//__device__ void init();
 	__device__ void Start_MA_kernal();
-	__device__ void Merge_SMCache(SMCache*);
+	__device__ void Merge_SMCache(SMCache* );
+	__device__ void insert(Intermediate * );
 
 private:
-	 char memoryPool[MEM_POOL];
 
-	 //parameters of the memory pool
-	 unsigned int buckets_remain;
-	 unsigned int num_buckets;
-	 unsigned int offset;
+	unsigned int key_index[MEM_BUCKETS];
+	unsigned int value_index[MEM_BUCKETS];
+	unsigned int key_size[MEM_BUCKETS];
+	unsigned int value_size[MEM_BUCKETS];
+	//unsigned int buckets_remain;
+
+   // __shared__ unsigned int offset;
+	char memoryPool[MEM_POOL];
+
+	int lock[MEM_BUCKETS];
 
 
 private:
-    __device__ void* Mem_Alloc_Global();
-    __device__ void* Mem_Alloc_Device();
 
+    __device__ int Mem_Alloc(unsigned int size);
+    __device__ void* getaddress(unsigned int offset);
+
+	__device__ bool insertOrUpdate(Intermediate *);
 
 
 };
