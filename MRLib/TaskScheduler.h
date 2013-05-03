@@ -24,6 +24,7 @@ class TaskScheduler {
 public:
 	//Interface
 	void doMapReduce();
+	TaskScheduler(const Specs*);
 	TaskScheduler();
 	void init(const Specs*);
 

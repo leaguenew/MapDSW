@@ -39,6 +39,8 @@
 __shared__ unsigned int domerge;
 
 __device__ void SMCache::init() {
+	int tid=threadIdx.x;
+	//printf("i am %d\n",tid);
 	for (int i = 0; i < CACHE_POOL; i++) {
 		memoryPool[i] = 0;
 	}
@@ -69,18 +71,21 @@ __device__ void SMCache::flush() {
 
 /*Allocate memory from the SMCache memory pool. If success, return the offset. else return -1*/
 __device__ int SMCache::Cache_Alloc(unsigned int size) {
+	bugbug("Cache_alloc")
 	if (buckets_remain > 0 && (offset + size) < CACHE_POOL) {
 		unsigned int result = atomicAdd(&offset, size);
 		//double check if the offset does not overflow
-		if (offset < CACHE_POOL) {
-			return result;
-		}
-		return -1;
+		printf("size %d\n\n",(int) offset);
+		return (int)result;
+//		if (offset < CACHE_POOL) {
+//			return result;
+//		}
+//		return -1;
 	}
 	return -1;
 }
 
-__device__ void* SMCache::getaddress(unsigned int offset) {
+__device__ void* SMCache::getaddress(unsigned short offset) {
 	return memoryPool + offset;
 }
 
@@ -105,25 +110,30 @@ __device__ bool SMCache::getIntermediate(Intermediate * result, unsigned int buc
  * The input is the intermediate date which is emitted at the end of the Map function
  */
 __device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d) {
-
+	bugbug("insert");
 	unsigned int tid = threadIdx.x;
 	unsigned int Num_threads_b=blockDim.x;
 	unsigned int threadsPerGroup = align(Num_threads_b,CACHEGROUP)/CACHEGROUP;
+	//if(threadIdx.x==0){printf("keysize %d\n\n",inter->keysize);}
 
 	/**
 	 * if the SMCache is not full, operate the insertion or update
 	 */
 	//there is a global flag "domerge" to judge whether to merge or not
+	//if(threadIdx.x==0){printf("aaaa%d\n\n",inter->keysize);}
 	bool flag = insertOrUpdate(inter);
+	printf("domerge %d\n\n",(int)domerge);
+	bugbug("test")
 	if (flag == false) {
 		atomicCAS(&domerge, 0, 1);
 	}
-	__syncthreads();
-
+//	__syncthreads();
+	bugbug("aaa");
 	/**
 	 * else if the SMCache is full, stop all the threads and then swap the SMCache out and merge to the
 	 * memory allocator. Then flush the SMCache, and insert again
 	 */
+	//problem
 	if (domerge) {
 		mem_alloc_d->Merge_SMCache(this);
 		__syncthreads();
@@ -134,7 +144,8 @@ __device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d) {
 			atomicExch(&domerge, 0);
 		}
 	}
-	__syncthreads();
+
+	printf("flag %d\n\n",(int)flag );
 
 	//must assert the intermediate key and value larger than the Cache Pool
 	if (flag == false) {
@@ -146,12 +157,12 @@ __device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d) {
  * insert or update the value, if success return true, else return false
  */
 __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
-
 	//hash the key in order to store the intermediate key value
 	unsigned int hash_result = hash((void*) inter->key, inter->keysize);
 	unsigned int result_bucket = hash_result % CACHE_BUCKETS;
-
+//	if(threadIdx.x==0){printf("result_bucket%d\n\n",(int) result_bucket);}
 	bool rehash = false;
+			//if(threadIdx.x==0){printf("tmp_offset_value %d \n",(int)inter->valuesize);}
 
 	while (buckets_remain>MAX_REMAIN_BUCKETS_C) {
 
@@ -163,26 +174,28 @@ __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
 
 				//alloc space for key,value, and store the key in the memory allocated
 				//trick put tmp_offset_value first so that tmp_offset_key cannot be 0
+	bugbug("insertorupdate");
 			    int tmp_offset_value = Cache_Alloc(inter->valuesize);
 				int tmp_offset_key = Cache_Alloc(inter->keysize);
-
 				//if the alloc failed return false
 				if (tmp_offset_key < 0 || tmp_offset_value < 0) {
 					return false;
 				}
 
-				key_index[result_bucket] = tmp_offset_key;
-				void* key_adress = getaddress(tmp_offset_key);
+				key_index[result_bucket] = (unsigned short)tmp_offset_key;
+				void* key_adress = getaddress((unsigned short)tmp_offset_key);
 				copyVal(key_adress, (void*) inter->key, inter->keysize);
+				//printf("tmp_offset_key %s\n\n",(char*)inter->key );
 
-				value_index[result_bucket] = tmp_offset_value;
-				void* value_adress = getaddress(tmp_offset_value);
+				value_index[result_bucket] = (unsigned short)tmp_offset_value;
+				void* value_adress = getaddress((unsigned short)tmp_offset_value);
 				copyVal(value_adress, (void*) inter->value, inter->valuesize);
 
 				key_size[result_bucket] = inter->keysize;
 				value_size[result_bucket] = inter->valuesize;
 
 				assert(releaseLock(&lock[result_bucket]));
+				//printf("11\n\n" );
 				return true;
 			}
 			rehash = true;

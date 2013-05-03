@@ -185,4 +185,5 @@ MRLib/TaskScheduler.o : ../MRLib/TaskScheduler.cu \
     ../MRLib/../UtilLib/GpuUtil.h \
     /usr/include/stdint.h \
     /usr/local/cuda-5.0/include/cuda.h \
+    /usr/include/c++/4.4/iostream \
     ../MRLib/../UserDef/Mapreduce.h

@@ -15,5 +15,7 @@ struct global_data_t{
 	char* content;
 	char* keyword;
 };
+//typedef char global_data_t;
+//typedef char keyword_t;
 
 #endif /* GLOBALDS_H_ */

@@ -46,7 +46,7 @@ private:
 
 private:
 	__device__ int Cache_Alloc(unsigned int size);
-	__device__ void* getaddress(unsigned int offset);
+	__device__ void* getaddress(unsigned short offset);
 	__device__ void getvalue(void* address, unsigned int size);
 
 	__device__ void flush();

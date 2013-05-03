@@ -14,6 +14,7 @@
 #include <cuda.h>
 #include <stdio.h>
 
+
 #  define CUT_CHECK_ERROR(errorMessage) do {				 \
     cudaError_t err = cudaGetLastError();				    \
     if( cudaSuccess != err) {						\

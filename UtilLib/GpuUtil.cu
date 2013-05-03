@@ -9,6 +9,7 @@
 
 
 #include "GpuUtil.h"
+#include "../MRLib/Common.h"
 
 __device__ uint32_t getThreadID(){
 //	uint32_t block_id=blockIdx.y*gridDim.x+blockIdx.x;
@@ -24,11 +25,13 @@ __device__ uint32_t getNumThreads(){
 
 __device__ unsigned int align(unsigned int size, unsigned int ALIGN)
 {
+	bugbug("align")
 	return (size+ALIGN-1)&(~(ALIGN-1));
 }
 
 __device__ void copyVal(void *dst, void *src, unsigned short size)
 {
+	printf("11\n\n" );
 	 char *d=(char*)dst;
 	 const char *s=(const char *)src;
 	 for(unsigned short i=0;i < size;i++)
@@ -37,6 +40,7 @@ __device__ void copyVal(void *dst, void *src, unsigned short size)
 
 //the bucket is locked when lock==1, initially 0
 __device__ bool getLock(int* lock) {
+	bugbug("getlock")
 	return atomicCAS(lock, 0, 1) == 0;
 }
 

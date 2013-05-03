@@ -15,16 +15,16 @@
 class SMCache;
 class Intermediate;
 
-//the global data in the device memory
-extern __device__ global_data_t* global_data_d;
-
-//the offset
-extern __device__ unsigned int* input_offset_d;
-extern __device__ unsigned int* input_size_d;
+////the global data in the device memory
+//extern global_data_t* global_data_d;
+//
+////the offset
+//extern unsigned int* input_offset_d;
+//extern unsigned int* input_size_d;
 
 //every block has a copy of this shared array. Since global atomic access use too much time, use 8 copies of offsets
 //each copy stores the start address for its warp
-extern __shared__ volatile unsigned int global_mem_offset[8];
+//extern __shared__ volatile unsigned int global_mem_offset[8];
 
 /**
  * part1: Reserved for

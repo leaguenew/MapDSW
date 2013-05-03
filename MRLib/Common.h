@@ -51,7 +51,6 @@ struct Specs {
 };
 
 struct Job {
-	Job();
 	const unsigned int* input;
 	unsigned int input_size;
 //	unsigned int unit_size;
@@ -69,5 +68,8 @@ struct GpuSpecs {
 //	unsigned int input_size;
 //	unsigned int unit_size;
 };
+
+//for debug
+#define bugbug(a) if(threadIdx.x==1){printf("%s:arrived here\n",a);}
 
 #endif /* COMMON_H_ */

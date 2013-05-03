@@ -13,14 +13,17 @@
 class Intermediate;
 class SMCache;
 class MemAlloc;
+//struct global_data_t;
 
 extern __device__ void emit_intermediate(Intermediate* inter, SMCache* Cache,
 		MemAlloc* Mem_Alloc);
 
-extern __device__ void map(unsigned int offset, SMCache* Cache, MemAlloc* Mem_Alloc);
+extern __device__ void map(void* global_data_d, unsigned int offset,
+		SMCache* Cache, MemAlloc* Mem_Alloc);
 
 extern __device__ void reduce();
 
-extern __device__ bool compare(const void* a, const void* b, unsigned short size) ;
+extern __device__ bool compare(const void* a, const void* b,
+		unsigned short size);
 
 #endif

@@ -18,12 +18,12 @@
 
 //#include "sm_11_atomic_functions.h"
 
-//the global data in the device memory
-__device__ global_data_t* global_data_d;
-
-//the offset
-__device__ unsigned int* input_offset_d;
-__device__ unsigned int* input_size_d;
+////the global data in the device memory
+//global_data_t* global_data_d;
+//
+////the offset
+//unsigned int* input_offset_d;
+//unsigned int* input_size_d;
 
 //every block has a copy of this shared array. Since global atomic access use too much time, use 8 copies of offsets
 //each copy stores the start address for its warp

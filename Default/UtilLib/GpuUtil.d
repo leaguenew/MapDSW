@@ -32,6 +32,7 @@ UtilLib/GpuUtil.o : ../UtilLib/GpuUtil.cu \
     /usr/local/cuda-5.0/include/common_functions.h \
     /usr/include/string.h \
     /usr/include/xlocale.h \
+    /usr/include/i386-linux-gnu/bits/string3.h \
     /usr/include/time.h \
     /usr/include/i386-linux-gnu/bits/time.h \
     /usr/include/i386-linux-gnu/bits/types.h \
@@ -49,6 +50,8 @@ UtilLib/GpuUtil.o : ../UtilLib/GpuUtil.cu \
     /usr/include/wchar.h \
     /usr/lib/gcc/i686-linux-gnu/4.4.7/include/stdarg.h \
     /usr/include/i386-linux-gnu/bits/sys_errlist.h \
+    /usr/include/i386-linux-gnu/bits/stdio.h \
+    /usr/include/i386-linux-gnu/bits/stdio2.h \
     /usr/include/stdlib.h \
     /usr/include/i386-linux-gnu/bits/waitflags.h \
     /usr/include/i386-linux-gnu/bits/waitstatus.h \
@@ -59,9 +62,11 @@ UtilLib/GpuUtil.o : ../UtilLib/GpuUtil.cu \
     /usr/include/i386-linux-gnu/sys/select.h \
     /usr/include/i386-linux-gnu/bits/select.h \
     /usr/include/i386-linux-gnu/bits/sigset.h \
+    /usr/include/i386-linux-gnu/bits/select2.h \
     /usr/include/i386-linux-gnu/sys/sysmacros.h \
     /usr/include/i386-linux-gnu/bits/pthreadtypes.h \
     /usr/include/alloca.h \
+    /usr/include/i386-linux-gnu/bits/stdlib.h \
     /usr/include/assert.h \
     /usr/local/cuda-5.0/include/math_functions.h \
     /usr/include/math.h \
@@ -72,6 +77,7 @@ UtilLib/GpuUtil.o : ../UtilLib/GpuUtil.cu \
     /usr/include/i386-linux-gnu/bits/nan.h \
     /usr/include/i386-linux-gnu/bits/mathdef.h \
     /usr/include/i386-linux-gnu/bits/mathcalls.h \
+    /usr/include/i386-linux-gnu/bits/mathinline.h \
     /usr/include/c++/4.4/cmath \
     /usr/include/c++/4.4/bits/cpp_type_traits.h \
     /usr/include/c++/4.4/ext/type_traits.h \

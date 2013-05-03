@@ -29,47 +29,53 @@ using namespace std;
 int main(int argc, char **argv) {
 //	get parameters from the command line
 
-	//get-opt to get parameters
+//get-opt to get parameters
 
 	////get-opt from mapcg
-
 
 	//Handle the input data
 	//get input from data file and copy the data into host memory
 	//make the raw input data fit the scheduler
 	string keyword;
-	keyword="hello";
+	keyword = "hello";
 
-	char* inputbuf=new char[11];
-	inputbuf="hello\0you\0";
-	int* offset;
-	offset=new int[2];
-    offset[0]=0;
-    offset[1]=6;
-
+	char* inputbuf = new char[10];
+	inputbuf = "hello\0you\0";
+	unsigned int* offset;
+	offset = new unsigned int[2];
+	offset[0] = 0;
+	offset[1] = 6;
 
 	//initialize the Specs from the command line
-    Specs SchedulerSpecs(argc,argv); //	parse the parameter and store them into Scheduler
-    SchedulerSpecs.input= (unsigned int*)offset;
-    SchedulerSpecs.input_size=11*sizeof(int);
+	Specs SchedulerSpecs(argc, argv); //	parse the parameter and store them into Scheduler
+	SchedulerSpecs.input = offset;
+	SchedulerSpecs.input_size = 2 * sizeof(int);
+
+	SchedulerSpecs.printArg();
+
+	global_data_t gbtmp;
+	gbtmp.content = inputbuf;
+	gbtmp.keyword="hello";
+	SchedulerSpecs.gbdata = &gbtmp;
+	SchedulerSpecs.gbdata_size = 10;
 
 
-    //DoLog("hello");
+//	cout << SchedulerSpecs.input[1]<<endl;
+	 //init the Scheduler
 
-    global_data_t* gbtmp;
-    gbtmp->content=inputbuf;
-    SchedulerSpecs.gbdata=gbtmp;
+	 TaskScheduler MapDSWScheduler;
+	 MapDSWScheduler.init(&SchedulerSpecs);
 
-	//init the Scheduler
-	TaskScheduler MapDSWScheduler;
-	MapDSWScheduler.init(&SchedulerSpecs);
+	 //start timer
+	 //Start Map-Reduce
+	 cout<<"Starting the Map-Reduce Procedure..."<<endl;
+	 MapDSWScheduler.doMapReduce();
 
-    //start timer
-	//Start Map-Reduce
-	MapDSWScheduler.doMapReduce();
-    //calculate the running time of the MapReduce Job
+	 /*
+	 //calculate the running time of the MapReduce Job
 
-	//get output from the Scheduler output queue
+	 //get output from the Scheduler output queue
 
-
+	 */
+	return 0;
 }

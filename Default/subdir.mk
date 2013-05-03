@@ -3,22 +3,22 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-CU_SRCS += \
-../UserDef/Mapreduce.cu 
-
-CU_DEPS += \
-./UserDef/Mapreduce.d 
+CPP_SRCS += \
+../main.cpp 
 
 OBJS += \
-./UserDef/Mapreduce.o 
+./main.o 
+
+CPP_DEPS += \
+./main.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-UserDef/%.o: ../UserDef/%.cu
+%.o: ../%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: NVCC Compiler'
-	nvcc -I/usr/local/cuda-5.0/include -G -g -lineinfo -pg -O0 -gencode arch=compute_20,code=sm_21 -odir "UserDef" -M -o "$(@:%.o=%.d)" "$<"
-	nvcc --device-c -G -I/usr/local/cuda-5.0/include -O0 -g -gencode arch=compute_20,code=sm_21 -lineinfo -pg  -x cu -o  "$@" "$<"
+	nvcc -I/usr/local/cuda-5.0/include -O2 -gencode arch=compute_20,code=sm_20 -gencode arch=compute_20,code=sm_21 -odir "" -M -o "$(@:%.o=%.d)" "$<"
+	nvcc -I/usr/local/cuda-5.0/include -O2 --compile  -x c++ -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

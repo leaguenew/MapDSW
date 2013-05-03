@@ -90,6 +90,8 @@
 								<option id="nvcc.compiler.include.paths.489766029" name="Include paths (-I)" superClass="nvcc.compiler.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/usr/local/cuda-5.0/include"/>
 								</option>
+								<option id="nvcc.compiler.option.lineinfo.534287039" superClass="nvcc.compiler.option.lineinfo" value="true" valueType="boolean"/>
+								<option id="nvcc.compiler.option.gprof.288239258" superClass="nvcc.compiler.option.gprof" value="true" valueType="boolean"/>
 								<inputType id="nvcc.compiler.input.cu.790324822" superClass="nvcc.compiler.input.cu"/>
 								<inputType id="nvcc.compiler.input.cpp.893749052" superClass="nvcc.compiler.input.cpp"/>
 								<inputType id="nvcc.compiler.input.c.144941883" superClass="nvcc.compiler.input.c"/>
