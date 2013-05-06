@@ -34,27 +34,29 @@ public:
 	//Interface
 	//__device__ void init();
 	__device__ void Start_MA_kernal();
-	__device__ void Merge_SMCache(SMCache* );
+	__device__ void Merge_SMCache(SMCache* , unsigned int groupid);
 	__device__ void insert(Intermediate * );
+    __device__ void* getaddress(unsigned int offset);
 
-private:
+public:
 
 	unsigned int key_index[MEM_BUCKETS];
 	unsigned int value_index[MEM_BUCKETS];
 	unsigned int key_size[MEM_BUCKETS];
 	unsigned int value_size[MEM_BUCKETS];
+	//if 1 then the bucket is used
+	unsigned int used[MEM_BUCKETS];
 	//unsigned int buckets_remain;
 
    // __shared__ unsigned int offset;
-	char memoryPool[MEM_POOL];
+	unsigned int memoryPool[MEM_POOL];
 
 	int lock[MEM_BUCKETS];
 
 
 private:
 
-    __device__ int Mem_Alloc(unsigned int size);
-    __device__ void* getaddress(unsigned int offset);
+    __device__ unsigned int Mem_Alloc(unsigned int size);
 
 	__device__ bool insertOrUpdate(Intermediate *);
 

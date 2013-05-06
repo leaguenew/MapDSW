@@ -27,6 +27,7 @@ public:
 	TaskScheduler(const Specs*);
 	TaskScheduler();
 	void init(const Specs*);
+	Output getOutput();
 
 private:
 	//slice the input data into job queue to prevent overflow
@@ -35,6 +36,8 @@ private:
 	void doMap(const Job*);
 	//schedule reduce
 	void doReduce();
+
+	//void mergeOutput();  multiple threads
 
 private:
 	const Specs* mySpecs;

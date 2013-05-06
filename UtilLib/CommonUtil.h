@@ -10,8 +10,16 @@
 #ifndef COMMONUTIL_H_
 #define COMMONUTIL_H_
 
+
+#include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <sstream>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
+#include <sys/time.h>
+#include <cuda.h>
 
 //=====================================
 // Print information
@@ -51,6 +59,12 @@ inline bool get_opt(int argc, char * argv[], const char * option, T & output){
 	return opt_found;
 }
 
+inline double get_time(){
+	//cudaThreadSynchronize();
+	timeval t;
+	gettimeofday(&t, NULL);
+	return (double)t.tv_sec+(double)t.tv_usec/1000000;
+}
 
 
 #endif /* COMMONUTIL_H_ */

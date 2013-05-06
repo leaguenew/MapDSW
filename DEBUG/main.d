@@ -129,6 +129,7 @@
     /usr/include/c++/4.4/bits/stl_bvector.h \
     /usr/include/c++/4.4/bits/vector.tcc \
     /usr/include/assert.h \
+    /usr/include/string.h \
     ../MRLib/TaskScheduler.h \
     /usr/include/c++/4.4/queue \
     /usr/include/c++/4.4/deque \
@@ -140,4 +141,13 @@
     ../MRLib/../UserDef/GlobalDS.h \
     ../UtilLib/CommonUtil.h \
     /usr/include/c++/4.4/sstream \
-    /usr/include/c++/4.4/bits/sstream.tcc
+    /usr/include/c++/4.4/bits/sstream.tcc \
+    /usr/include/fcntl.h \
+    /usr/include/i386-linux-gnu/bits/fcntl.h \
+    /usr/include/i386-linux-gnu/bits/uio.h \
+    /usr/include/i386-linux-gnu/bits/stat.h \
+    /usr/include/i386-linux-gnu/sys/stat.h \
+    /usr/include/i386-linux-gnu/sys/mman.h \
+    /usr/include/i386-linux-gnu/bits/mman.h \
+    /usr/include/i386-linux-gnu/sys/time.h \
+    /usr/local/cuda-5.0/include/cuda.h

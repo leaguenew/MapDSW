@@ -22,14 +22,12 @@ __device__ void emit_intermediate(Intermediate* inter, SMCache* Cache,
  * String match
  */
 __device__ void map(void* global_data_d, unsigned int offset, SMCache* Cache, MemAlloc* Mem_Alloc) {
-	char* keyword = "hello";
+	char* keyword = "zeh\0";
 	char* line =(char* )global_data_d + offset;
-//	printf("keyword %s\n",keyword);
-	//if(threadIdx.x==0){printf("line %s\n",line);}
-//	printf("line %s\n",line);
+
 	//store the position of the key, emit as the value, line as the key
 	char* pos = line;
-
+//	printf("%s\n",line);
 	//Match the key word, begin from each line
 	while (*pos != '\0') {
 		char* pkeyword = keyword;
@@ -44,16 +42,14 @@ __device__ void map(void* global_data_d, unsigned int offset, SMCache* Cache, Me
 					int pos_line = pos - line;
 					//the intermediate is the line of the +input_offset_d[0]
 					Intermediate inter;
-					//if(threadIdx.x==0){printf("pos_line %d\n offset %d",pos_line,offset);}
 					inter.init(&offset, sizeof(int), &pos_line, sizeof(int));
 
 					emit_intermediate(&inter, Cache, Mem_Alloc);
 					pos = curr;
-					if(threadIdx.x==0){printf("pos %d",(int)(curr-line));}
 				}
+
 			} else {
 				pos++;
-				//if(threadIdx.x==0){printf("pos ");}
 				break;
 			}
 		}
@@ -68,6 +64,16 @@ __device__ void reduce() {
  * compare the value, Most time, this function does not need to be changed
  */
 __device__ bool compare(const void* a, const void* b, unsigned short size) {
-	return false;
+	char* comA= (char*) a;
+	char* comB= (char*) b;
+	for(int i=0; i < size; i++){
+		if(*comA!=*comB){
+			return false;
+		}
+		comA++;
+		comB++;
+	}
+	//Sprintf("same!!!\n");
+	return true;
 }
 

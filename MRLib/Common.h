@@ -16,16 +16,22 @@
 // Some important Definitions
 //===========================
 #define WARP 32
-#define CACHEGROUP 8
-#define MEM_BUCKETS 16384
-#define CACHE_BUCKETS 400
-#define MEM_POOL 4*1024*1024
-#define CACHE_POOL 1024
+#define CACHEGROUP 1
+#define MEM_BUCKETS 1638400
+// the Cache_buckets should better bigger than Threads_in_block/CacheGroup.
+//eg,bigger than 32 otherwise there may be unknown consequences
+#define CACHE_BUCKETS 1600
+
+
+#define MEM_POOL 16*1024*1024
+#define CACHE_POOL 2000
 
 //the max remain buckets in SM Cache or MemAlloc.
 //While the remain bucket is small, it will use more time to find an empty bucket which may waste time
-#define MAX_REMAIN_BUCKETS_C 20  //eg. 20
+#define MAX_REMAIN_BUCKETS_C 0  //eg. 20
 #define MAX_REMAIN_BUCKETS_M 0  //eg. MEM_BUCKETS/10
+
+
 //=============================
 // important data structures
 //=============================
@@ -58,8 +64,11 @@ struct Job {
 };
 
 struct Output {
-	//KEY
-	//VALUE
+	char *output_keys;
+	char *output_vals;
+	unsigned int *key_index;
+	unsigned int *val_index;
+	unsigned int count;
 };
 
 //specs used in GPU

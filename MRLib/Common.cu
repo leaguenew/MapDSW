@@ -24,6 +24,6 @@ void Specs::printArg(){
 //parse the parameters from the command line and store it into the Spec.
 Specs::Specs(int argc, char** argv){
 //for test
-	dim_grid=128;
+	dim_grid=32;
 	dim_block=256;
 }

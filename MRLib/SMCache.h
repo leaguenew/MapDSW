@@ -25,6 +25,7 @@ class SMCache{
 public:
 	//interface
 	__device__ void init();
+	__device__ void flush();
 	__device__ void insert(Intermediate *, MemAlloc* );
 	//get intermediate from cache buckets which is used while merged into the Mem_Alloc
 	__device__ bool getIntermediate(Intermediate * result, unsigned int bucket);
@@ -40,7 +41,7 @@ private:
 	unsigned int buckets_remain;
 
     unsigned int offset;
-	char memoryPool[CACHE_POOL];
+	unsigned int memoryPool[CACHE_POOL];
 
 	int lock[CACHE_BUCKETS];
 
@@ -49,7 +50,6 @@ private:
 	__device__ void* getaddress(unsigned short offset);
 	__device__ void getvalue(void* address, unsigned int size);
 
-	__device__ void flush();
 	__device__ bool insertOrUpdate(Intermediate *);
 
 

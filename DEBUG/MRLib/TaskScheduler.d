@@ -129,15 +129,18 @@ MRLib/TaskScheduler.o : ../MRLib/TaskScheduler.cu \
     ../MRLib/../UserDef/GlobalDS.h \
     ../MRLib/SMCache.h \
     ../MRLib/Intermediate.h \
-    ../MRLib/../UtilLib/CommonUtil.h \
-    /usr/include/c++/4.4/sstream \
-    /usr/include/c++/4.4/istream \
+    ../MRLib/../UtilLib/GpuUtil.h \
+    /usr/include/stdint.h \
+    /usr/include/i386-linux-gnu/bits/wchar.h \
+    /usr/local/cuda-5.0/include/cuda.h \
+    ../MRLib/../UtilLib/Scan.h \
+    /usr/include/c++/4.4/iostream \
+    /usr/include/c++/4.4/ostream \
     /usr/include/c++/4.4/ios \
     /usr/include/c++/4.4/iosfwd \
     /usr/include/c++/4.4/bits/stringfwd.h \
     /usr/include/c++/4.4/bits/postypes.h \
     /usr/include/c++/4.4/cwchar \
-    /usr/include/i386-linux-gnu/bits/wchar.h \
     /usr/include/c++/4.4/bits/char_traits.h \
     /usr/include/c++/4.4/bits/localefwd.h \
     /usr/include/c++/4.4/i686-linux-gnu/./bits/c++locale.h \
@@ -178,12 +181,7 @@ MRLib/TaskScheduler.o : ../MRLib/TaskScheduler.cu \
     /usr/include/c++/4.4/i686-linux-gnu/./bits/ctype_inline.h \
     /usr/include/c++/4.4/bits/locale_facets.tcc \
     /usr/include/c++/4.4/bits/basic_ios.tcc \
-    /usr/include/c++/4.4/ostream \
     /usr/include/c++/4.4/bits/ostream.tcc \
+    /usr/include/c++/4.4/istream \
     /usr/include/c++/4.4/bits/istream.tcc \
-    /usr/include/c++/4.4/bits/sstream.tcc \
-    ../MRLib/../UtilLib/GpuUtil.h \
-    /usr/include/stdint.h \
-    /usr/local/cuda-5.0/include/cuda.h \
-    /usr/include/c++/4.4/iostream \
     ../MRLib/../UserDef/Mapreduce.h
