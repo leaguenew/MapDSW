@@ -11,25 +11,7 @@
 #define COMMON_H_
 
 #include "../UserDef/GlobalDS.h"
-
-//===========================
-// Some important Definitions
-//===========================
-#define WARP 32
-#define CACHEGROUP 1
-#define MEM_BUCKETS 1638400
-// the Cache_buckets should better bigger than Threads_in_block/CacheGroup.
-//eg,bigger than 32 otherwise there may be unknown consequences
-#define CACHE_BUCKETS 1600
-
-
-#define MEM_POOL 16*1024*1024
-#define CACHE_POOL 2000
-
-//the max remain buckets in SM Cache or MemAlloc.
-//While the remain bucket is small, it will use more time to find an empty bucket which may waste time
-#define MAX_REMAIN_BUCKETS_C 0  //eg. 20
-#define MAX_REMAIN_BUCKETS_M 0  //eg. MEM_BUCKETS/10
+#define _DEBUG
 
 
 //=============================
@@ -44,7 +26,6 @@ struct Specs {
 	const unsigned int* input;
 //the number of input records* sizeof(int)
 	unsigned int input_size;
-//	unsigned int unit_size;
 
 //global data
 	const global_data_t* gbdata;
@@ -59,7 +40,6 @@ struct Specs {
 struct Job {
 	const unsigned int* input;
 	unsigned int input_size;
-//	unsigned int unit_size;
 	unsigned int data_size;
 };
 
@@ -71,14 +51,16 @@ struct Output {
 	unsigned int count;
 };
 
-//specs used in GPU
-struct GpuSpecs {
-	const unsigned int* input;
-//	unsigned int input_size;
-//	unsigned int unit_size;
-};
-
 //for debug
 #define bugbug(a) if(threadIdx.x==1){printf("%s:arrived here\n",a);}
+
+//=====================================
+// Print information
+//=====================================
+#ifdef _DEBUG
+#define DoLog(...) do{printf(__VA_ARGS__);printf("\n");}while(0)
+#else
+#define DoLog(...)
+#endif
 
 #endif /* COMMON_H_ */

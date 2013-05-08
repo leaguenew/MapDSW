@@ -97,6 +97,7 @@ MRLib/SMCahce.o : ../MRLib/SMCahce.cu \
     ../MRLib/Common.h \
     ../MRLib/../UserDef/GlobalDS.h \
     ../MRLib/SMCache.h \
+    ../MRLib/Mem_paras.h \
     ../MRLib/MemAlloc.h \
     ../MRLib/Intermediate.h \
     ../MRLib/../UtilLib/hash.h \

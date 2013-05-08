@@ -97,6 +97,7 @@ UserDef/Mapreduce.o : ../UserDef/Mapreduce.cu \
     ../UserDef/Mapreduce.h \
     ../UserDef/../MRLib/Intermediate.h \
     ../UserDef/../MRLib/SMCache.h \
+    ../UserDef/../MRLib/Mem_paras.h \
     ../UserDef/../MRLib/Common.h \
     ../UserDef/../MRLib/../UserDef/GlobalDS.h \
     ../UserDef/../MRLib/MemAlloc.h

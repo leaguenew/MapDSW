@@ -125,6 +125,7 @@ MRLib/TaskScheduler.o : ../MRLib/TaskScheduler.cu \
     /usr/include/c++/4.4/backward/binders.h \
     /usr/include/c++/4.4/bits/stl_queue.h \
     ../MRLib/MemAlloc.h \
+    ../MRLib/Mem_paras.h \
     ../MRLib/Common.h \
     ../MRLib/../UserDef/GlobalDS.h \
     ../MRLib/SMCache.h \

@@ -11,10 +11,6 @@
 #include "../MRLib/Common.h"
 
 __device__ uint32_t getThreadID() {
-//	uint32_t block_id=blockIdx.y*gridDim.x+blockIdx.x;
-//	uint32_t blockSize=blockDim.z*blockDim.y*blockDim.x;
-//	uint32_t thread_id=threadIdx.z*blockDim.y+threadIdx.y*blockDim.x+threadIdx.x;
-//	return block_id*blockSize+thread_id;
 	return blockIdx.x * blockDim.x + threadIdx.x;
 }
 

@@ -72,9 +72,10 @@ __device__ void SMCache::flush() {
 /*Allocate memory from the SMCache memory pool. If success, return the offset. else return -1*/
 __device__ int SMCache::Cache_Alloc(unsigned int size) {
 
-	size=align(size,4)/4;
+	size = align(size, 4) / 4;
+
 	if (buckets_remain > 0 && (offset + size) < CACHE_POOL) {
-		unsigned int result = atomicAdd(&offset, size);
+		unsigned int result = atomicAdd((unsigned int*) &offset, size);
 		//double check if the offset does not overflow
 		if (offset < CACHE_POOL) {
 			return (int) result;
@@ -91,6 +92,7 @@ __device__ void* SMCache::getaddress(unsigned short offset) {
 //get intermediate from cache buckets which is used while merged into the Mem_Alloc
 __device__ bool SMCache::getIntermediate(Intermediate * result,
 		unsigned int bucket) {
+
 	assert(bucket<CACHE_BUCKETS);
 
 	if (bucket < CACHE_BUCKETS && key_index[bucket] != 0) {
@@ -99,7 +101,7 @@ __device__ bool SMCache::getIntermediate(Intermediate * result,
 
 		result->init(getaddress(key_index[bucket]), keysize,
 				getaddress(value_index[bucket]), valuesize);
-		//	printf("%s",(char*)result->key);
+
 		return true;
 	}
 
@@ -110,50 +112,17 @@ __device__ bool SMCache::getIntermediate(Intermediate * result,
  * This function perform as a insert and update function in SMCache.
  * The input is the intermediate date which is emitted at the end of the Map function
  */
-__device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d) {
-//	unsigned int tid = threadIdx.x;
-	unsigned int Num_threads_b = blockDim.x;
-	unsigned int threadsPerGroup = align(Num_threads_b, CACHEGROUP) / CACHEGROUP;
+__device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d, bool isFail) {
 
-	/**
-	 * if the SMCache is not full, operate the insertion or update
-	 */
-	//there is a global flag "domerge" to judge whether to merge or not
-	bool flag = insertOrUpdate(inter);
+	//fyi:there is a global flag "domerge" to judge whether to merge or not
+	 isFail = insertOrUpdate(inter);
 
-	//printf("domerge %d\n\n", (int) domerge);
-
-	if (flag == false) {
-		//printf("insert fail@@@@@@\n");
+	if (isFail == true) {
 		atomicCAS(&domerge, 0, 1);
 	}
 
-//	/**
-//	 * else if the SMCache is full, stop all the threads and then swap the SMCache out and merge to the
-//	 * memory allocator. Then flush the SMCache, and insert again
-//	 */
-//	//problem!!!!!!!!!!!!!
-//	if (domerge) {
-//		mem_alloc_d->Merge_SMCache(this);
-//		__syncthreads();
-//		if (tid % threadsPerGroup == 0) {
-//			flush();
-//		}
-//		if (tid == 0) {
-//			atomicExch(&domerge, 0);
-//		}
-//	}
 
-//	if(flag==true){
-//	printf("The insertion in cache is success \n");
-//	}else{
-//	printf("The insertion in cache is failed \n");
-//	}
 
-//	//must assert the intermediate key and value larger than the Cache Pool
-//	if (flag == false) {
-//		assert(insertOrUpdate(inter));
-//	}
 }
 
 /**
@@ -161,6 +130,7 @@ __device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d) {
  */
 //key maybe not correct
 __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
+
 	//hash the key in order to store the intermediate key value
 	unsigned int hash_result = hash((void*) inter->key, inter->keysize);
 	unsigned int result_bucket = hash_result % CACHE_BUCKETS;
@@ -168,7 +138,7 @@ __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
 	bool rehash = false;
 
 	while (buckets_remain > MAX_REMAIN_BUCKETS_C) {
-		//	printf("buckets_remain %d\n",buckets_remain);
+
 		//if the key's hash bucket does not contain a value, allocate sm memory to it and store the key, value, keysize and value size
 		if (key_index[result_bucket] == 0) {
 
@@ -176,15 +146,13 @@ __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
 			if (getLock(&lock[result_bucket])) {
 
 				//alloc space for key,value, and store the key in the memory allocated
-				//trick put tmp_offset_value first so that tmp_offset_key cannot be 0
+				//trick: put tmp_offset_value first so that tmp_offset_key cannot be 0
 
 				int tmp_offset_value = Cache_Alloc(inter->valuesize);
 				int tmp_offset_key = Cache_Alloc(inter->keysize);
 
 				//if the alloc failed return false
 				if (tmp_offset_key < 0 || tmp_offset_value < 0) {
-					printf("not enough memory in cache\n");
-					printf("used buckets %d\n", buckets_remain);
 					assert(releaseLock(&lock[result_bucket]));
 					return false;
 				}
@@ -209,16 +177,17 @@ __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
 			rehash = true;
 
 		} else {
+
 			//else when conflict
-			//get the key from bucket, aware that every key or value is ended by \0 so that we can get the key or value easily
+
 			unsigned short currentKeysize = key_size[result_bucket];
-			unsigned short currentKeyindex= key_index[result_bucket];
+			unsigned short currentKeyindex = key_index[result_bucket];
+
 			if (inter->keysize == currentKeysize) {
 				char *currentkey = (char*) getaddress(currentKeyindex);
 				if (compare(currentkey, inter->key, currentKeysize)) {
 					//the current key is exactly the same as the input key, do the reduce step and update the value
-					//printf("!!!!!!!\n");
-					//reduce();
+					reduce();
 					return true;
 				} else {
 					//the current key is not the same, then rehash

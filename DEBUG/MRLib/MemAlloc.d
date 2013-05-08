@@ -97,6 +97,7 @@ MRLib/MemAlloc.o : ../MRLib/MemAlloc.cu \
     ../MRLib/Common.h \
     ../MRLib/../UserDef/GlobalDS.h \
     ../MRLib/MemAlloc.h \
+    ../MRLib/Mem_paras.h \
     ../MRLib/SMCache.h \
     ../MRLib/Intermediate.h \
     ../MRLib/../UtilLib/hash.h \

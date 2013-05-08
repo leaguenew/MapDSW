@@ -163,4 +163,17 @@ MRLib/Common.o : ../MRLib/Common.cu \
     /usr/include/c++/4.4/istream \
     /usr/include/c++/4.4/bits/istream.tcc \
     ../MRLib/Common.h \
-    ../MRLib/../UserDef/GlobalDS.h
+    ../MRLib/../UserDef/GlobalDS.h \
+    ../MRLib/Mem_paras.h \
+    ../MRLib/../UtilLib/CommonUtil.h \
+    /usr/include/c++/4.4/sstream \
+    /usr/include/c++/4.4/bits/sstream.tcc \
+    /usr/include/fcntl.h \
+    /usr/include/i386-linux-gnu/bits/fcntl.h \
+    /usr/include/i386-linux-gnu/bits/uio.h \
+    /usr/include/i386-linux-gnu/bits/stat.h \
+    /usr/include/i386-linux-gnu/sys/stat.h \
+    /usr/include/i386-linux-gnu/sys/mman.h \
+    /usr/include/i386-linux-gnu/bits/mman.h \
+    /usr/include/i386-linux-gnu/sys/time.h \
+    /usr/local/cuda-5.0/include/cuda.h

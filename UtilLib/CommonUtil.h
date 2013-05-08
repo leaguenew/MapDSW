@@ -21,14 +21,7 @@
 #include <sys/time.h>
 #include <cuda.h>
 
-//=====================================
-// Print information
-//=====================================
-#ifdef _DEBUG
-#define DoLog(...) do{printf(__VA_ARGS__);printf("\n");}while(0)
-#else
-#define DoLog(...)
-#endif
+
 
 //=====================================
 // parse command line option

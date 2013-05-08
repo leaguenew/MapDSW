@@ -23,10 +23,13 @@ struct Output;
 class TaskScheduler {
 public:
 	//Interface
-	void doMapReduce();
-	TaskScheduler(const Specs*);
 	TaskScheduler();
+	TaskScheduler(const Specs*);
 	void init(const Specs*);
+	void destroy();
+
+	void doMapReduce();
+	//to be improved
 	Output getOutput();
 
 private:
@@ -35,7 +38,7 @@ private:
 	//schedule map
 	void doMap(const Job*);
 	//schedule reduce
-	void doReduce();
+//	void doReduce();
 
 	//void mergeOutput();  multiple threads
 
@@ -46,6 +49,5 @@ private:
 
 };
 
-//__device__ void emit_intermediate(Intermediate* inter, SMCache* Cache, MemAlloc* Mem_Alloc);
 
 #endif /* TASKSCHEDULER_H_ */

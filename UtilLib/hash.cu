@@ -21,3 +21,4 @@ __device__ unsigned short hash(void *key, unsigned short size)
 	}
 	return hs;
 }
+
