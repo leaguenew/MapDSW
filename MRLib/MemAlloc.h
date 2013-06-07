@@ -25,6 +25,7 @@ public:
 	__device__ void Merge_SMCache(SMCache* , unsigned int groupid);
 	__device__ void insert(Intermediate * );
     __device__ void* getaddress(unsigned int offset);
+    __device__ bool getIntermediate(Intermediate * result, unsigned int bucket);
 
 public:
 

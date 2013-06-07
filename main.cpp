@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 	memcpy(filebuf, rawbuf, size);
 
 	unsigned int* offsets;
-	offsets= new unsigned int[100000];
+	offsets= new unsigned int[1000000];
 	int i=0;
 	unsigned int offset=0;
 

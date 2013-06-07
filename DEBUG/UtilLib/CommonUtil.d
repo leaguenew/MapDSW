@@ -1,4 +1,4 @@
-MRLib/TaskScheduler.o : ../MRLib/TaskScheduler.cu \
+UtilLib/CommonUtil.o : ../UtilLib/CommonUtil.cu \
     /usr/local/cuda-5.0/include/cuda_runtime.h \
     /usr/local/cuda-5.0/include/host_config.h \
     /usr/include/features.h \
@@ -94,48 +94,7 @@ MRLib/TaskScheduler.o : ../MRLib/TaskScheduler.cu \
     /usr/local/cuda-5.0/include/texture_indirect_functions.h \
     /usr/local/cuda-5.0/include/surface_indirect_functions.h \
     /usr/local/cuda-5.0/include/device_launch_parameters.h \
-    ../MRLib/TaskScheduler.h \
-    /usr/include/c++/4.4/queue \
-    /usr/include/c++/4.4/deque \
-    /usr/include/c++/4.4/bits/stl_algobase.h \
-    /usr/include/c++/4.4/bits/functexcept.h \
-    /usr/include/c++/4.4/exception_defines.h \
-    /usr/include/c++/4.4/ext/numeric_traits.h \
-    /usr/include/c++/4.4/bits/stl_pair.h \
-    /usr/include/c++/4.4/bits/move.h \
-    /usr/include/c++/4.4/bits/concept_check.h \
-    /usr/include/c++/4.4/bits/stl_iterator_base_types.h \
-    /usr/include/c++/4.4/bits/stl_iterator_base_funcs.h \
-    /usr/include/c++/4.4/bits/stl_iterator.h \
-    /usr/include/c++/4.4/debug/debug.h \
-    /usr/include/c++/4.4/bits/allocator.h \
-    /usr/include/c++/4.4/i686-linux-gnu/./bits/c++allocator.h \
-    /usr/include/c++/4.4/ext/new_allocator.h \
-    /usr/include/c++/4.4/bits/stl_construct.h \
-    /usr/include/c++/4.4/bits/stl_uninitialized.h \
-    /usr/include/c++/4.4/bits/stl_deque.h \
-    /usr/include/c++/4.4/initializer_list \
-    /usr/include/c++/4.4/bits/deque.tcc \
-    /usr/include/c++/4.4/vector \
-    /usr/include/c++/4.4/bits/stl_vector.h \
-    /usr/include/c++/4.4/bits/stl_bvector.h \
-    /usr/include/c++/4.4/bits/vector.tcc \
-    /usr/include/c++/4.4/bits/stl_heap.h \
-    /usr/include/c++/4.4/bits/stl_function.h \
-    /usr/include/c++/4.4/backward/binders.h \
-    /usr/include/c++/4.4/bits/stl_queue.h \
-    ../MRLib/MemAlloc.h \
-    ../MRLib/Mem_paras.h \
-    ../MRLib/Common.h \
-    ../MRLib/../UserDef/GlobalDS.h \
-    ../MRLib/SMCache.h \
-    ../MRLib/Intermediate.h \
-    ../MRLib/../UtilLib/GpuUtil.h \
-    /usr/include/stdint.h \
-    /usr/include/i386-linux-gnu/bits/wchar.h \
-    /usr/local/cuda-5.0/include/cuda.h \
-    ../MRLib/../UtilLib/Scan.h \
-    ../MRLib/../UtilLib/CommonUtil.h \
+    ../UtilLib/CommonUtil.h \
     /usr/include/unistd.h \
     /usr/include/i386-linux-gnu/bits/posix_opt.h \
     /usr/include/i386-linux-gnu/bits/environments.h \
@@ -148,7 +107,19 @@ MRLib/TaskScheduler.o : ../MRLib/TaskScheduler.cu \
     /usr/include/c++/4.4/bits/stringfwd.h \
     /usr/include/c++/4.4/bits/postypes.h \
     /usr/include/c++/4.4/cwchar \
+    /usr/include/i386-linux-gnu/bits/wchar.h \
     /usr/include/c++/4.4/bits/char_traits.h \
+    /usr/include/c++/4.4/bits/stl_algobase.h \
+    /usr/include/c++/4.4/bits/functexcept.h \
+    /usr/include/c++/4.4/exception_defines.h \
+    /usr/include/c++/4.4/ext/numeric_traits.h \
+    /usr/include/c++/4.4/bits/stl_pair.h \
+    /usr/include/c++/4.4/bits/move.h \
+    /usr/include/c++/4.4/bits/concept_check.h \
+    /usr/include/c++/4.4/bits/stl_iterator_base_types.h \
+    /usr/include/c++/4.4/bits/stl_iterator_base_funcs.h \
+    /usr/include/c++/4.4/bits/stl_iterator.h \
+    /usr/include/c++/4.4/debug/debug.h \
     /usr/include/c++/4.4/bits/localefwd.h \
     /usr/include/c++/4.4/i686-linux-gnu/./bits/c++locale.h \
     /usr/include/c++/4.4/clocale \
@@ -167,9 +138,15 @@ MRLib/TaskScheduler.o : ../MRLib/TaskScheduler.cu \
     /usr/include/c++/4.4/i686-linux-gnu/./bits/atomic_word.h \
     /usr/include/c++/4.4/bits/locale_classes.h \
     /usr/include/c++/4.4/string \
+    /usr/include/c++/4.4/bits/allocator.h \
+    /usr/include/c++/4.4/i686-linux-gnu/./bits/c++allocator.h \
+    /usr/include/c++/4.4/ext/new_allocator.h \
     /usr/include/c++/4.4/bits/ostream_insert.h \
     /usr/include/c++/4.4/cxxabi-forced.h \
+    /usr/include/c++/4.4/bits/stl_function.h \
+    /usr/include/c++/4.4/backward/binders.h \
     /usr/include/c++/4.4/bits/basic_string.h \
+    /usr/include/c++/4.4/initializer_list \
     /usr/include/c++/4.4/bits/basic_string.tcc \
     /usr/include/c++/4.4/bits/locale_classes.tcc \
     /usr/include/c++/4.4/streambuf \
@@ -195,5 +172,4 @@ MRLib/TaskScheduler.o : ../MRLib/TaskScheduler.cu \
     /usr/include/i386-linux-gnu/sys/mman.h \
     /usr/include/i386-linux-gnu/bits/mman.h \
     /usr/include/i386-linux-gnu/sys/time.h \
-    /usr/include/c++/4.4/iostream \
-    ../MRLib/../UserDef/Mapreduce.h
+    /usr/local/cuda-5.0/include/cuda.h

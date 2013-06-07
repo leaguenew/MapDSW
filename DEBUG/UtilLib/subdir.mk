@@ -4,14 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CU_SRCS += \
+../UtilLib/CommonUtil.cu \
 ../UtilLib/GpuUtil.cu \
 ../UtilLib/hash.cu 
 
 CU_DEPS += \
+./UtilLib/CommonUtil.d \
 ./UtilLib/GpuUtil.d \
 ./UtilLib/hash.d 
 
 OBJS += \
+./UtilLib/CommonUtil.o \
 ./UtilLib/GpuUtil.o \
 ./UtilLib/hash.o 
 

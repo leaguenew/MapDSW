@@ -16,10 +16,10 @@
 /**
  * String match
  */
-__device__ void map(void* global_data_d, unsigned int offset, SMCache* Cache,
-		MemAlloc* Mem_Alloc, bool isFail) {
+__device__ void map(void* global_data_d, unsigned int offset,
+		MemAlloc* Mem_Alloc, SMCache* Cache, bool *isFail) {
 
-	char* keyword = "zjg\0";
+	char* keyword = "dahz\0";
 	char* line = (char*) global_data_d + offset;
 
 	//store the position of the key, emit as the value, line as the key
@@ -38,12 +38,15 @@ __device__ void map(void* global_data_d, unsigned int offset, SMCache* Cache,
 				curr++;
 				if (*pkeyword == '\0') {
 					int pos_line = pos - line;
+					//int length=curr-pos;
+					if ((*curr == ' ' || *curr == '\0')) {
+						//the intermediate is the line of the +input_offset_d[0]
+						Intermediate inter;
+						inter.init(&offset, sizeof(int), &pos_line,
+								sizeof(int));
 
-					//the intermediate is the line of the +input_offset_d[0]
-					Intermediate inter;
-					inter.init(&offset, sizeof(int), &pos_line, sizeof(int));
-
-					emit_intermediate(&inter, Cache, Mem_Alloc, isFail);
+						emit_intermediate(&inter, Mem_Alloc, Cache, isFail);
+					}
 
 					pos = curr;
 				}
@@ -57,29 +60,28 @@ __device__ void map(void* global_data_d, unsigned int offset, SMCache* Cache,
 
 }
 
-__device__ void reduce() {
+__device__ void reduce(Intermediate* current, Intermediate* inter) {
 
 }
 
 /**
  * compare the value, Most time, this function does not need to be changed
  */
-__device__ bool compare(const void* a, const void* b, unsigned short size) {
+__device__ int compare(const void* a, const void* b, unsigned short size_a,
+		unsigned short size_b) {
 
-//	char* comA = (char*) a;
-//	char* comB = (char*) b;
-//
-//	for (int i = 0; i < size; i++) {
-//
-//		if (*comA != *comB) {
-//			return false;
-//		}
-//
-//		comA++;
-//		comB++;
-//	}
-//
-//	return true;
-	return false;
+	//equal: 0 smaller than -1 bigger than 1
+	/*unsigned int A, B;
+	 copyVal(&A, (void*) a, sizeof(unsigned int));
+	 copyVal(&B, (void*) b, sizeof(unsigned int));
+
+	 if (A > B)
+	 return 1;
+	 else if (A < B)
+	 return -1;
+	 else
+	 return 0;*/
+
+	return -2;
 }
 

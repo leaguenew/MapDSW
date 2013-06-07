@@ -112,16 +112,16 @@ __device__ bool SMCache::getIntermediate(Intermediate * result,
  * This function perform as a insert and update function in SMCache.
  * The input is the intermediate date which is emitted at the end of the Map function
  */
-__device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d, bool isFail) {
+__device__ void SMCache::insert(Intermediate *inter, MemAlloc* mem_alloc_d,
+		bool isFail) {
 
 	//fyi:there is a global flag "domerge" to judge whether to merge or not
-	 isFail = insertOrUpdate(inter);
+	isFail = !insertOrUpdate(inter);
 
 	if (isFail == true) {
 		atomicCAS(&domerge, 0, 1);
 	}
-
-
+	//printf("success!\n");
 
 }
 
@@ -136,11 +136,12 @@ __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
 	unsigned int result_bucket = hash_result % CACHE_BUCKETS;
 
 	bool rehash = false;
+	bool conflict = false;
 
 	while (buckets_remain > MAX_REMAIN_BUCKETS_C) {
 
 		//if the key's hash bucket does not contain a value, allocate sm memory to it and store the key, value, keysize and value size
-		if (key_index[result_bucket] == 0) {
+		if (conflict == false && key_index[result_bucket] == 0) {
 
 			//attention: should get lock in order to prevent multiple access to the same bucket at the same time
 			if (getLock(&lock[result_bucket])) {
@@ -174,28 +175,37 @@ __device__ bool SMCache::insertOrUpdate(Intermediate* inter) {
 
 				return true;
 			}
-			rehash = true;
+			conflict = true;
 
 		} else {
 
-			//else when conflict
+			if (getLock(&lock[result_bucket])) {
 
-			unsigned short currentKeysize = key_size[result_bucket];
-			unsigned short currentKeyindex = key_index[result_bucket];
+				conflict = false;
 
-			if (inter->keysize == currentKeysize) {
-				char *currentkey = (char*) getaddress(currentKeyindex);
-				if (compare(currentkey, inter->key, currentKeysize)) {
-					//the current key is exactly the same as the input key, do the reduce step and update the value
-					reduce();
-					return true;
+				unsigned short currentKeysize = key_size[result_bucket];
+				unsigned short currentKeyindex = key_index[result_bucket];
+
+				if (inter->keysize == currentKeysize) {
+					char *currentkey = (char*) getaddress(currentKeyindex);
+					if (compare(currentkey, inter->key, currentKeysize)) {
+						//the current key is exactly the same as the input key, do the reduce step and update the value
+						Intermediate current;
+						getIntermediate(&current, result_bucket);
+						//printf("result_bucket : %d!\n", currentKeyindex);
+						reduce(&current, inter);
+						assert(releaseLock(&lock[result_bucket]));
+						return true;
+					} else {
+						//the current key is not the same, then rehash
+						rehash = true;
+					}
 				} else {
-					//the current key is not the same, then rehash
 					rehash = true;
 				}
-			} else {
-				rehash = true;
+				assert(releaseLock(&lock[result_bucket]));
 			}
+
 		}
 		if (rehash == true) {
 			result_bucket = (result_bucket + 1) % CACHE_BUCKETS;
